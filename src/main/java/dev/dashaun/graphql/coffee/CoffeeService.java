@@ -1,19 +1,18 @@
-package com.example.graphql.service;
+package dev.dashaun.graphql.coffee;
 
-import com.example.graphql.model.Coffee;
-import com.example.graphql.model.Size;
 import org.springframework.stereotype.Service;
 
 import jakarta.annotation.PostConstruct;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicInteger;
 
 @Service
 public class CoffeeService {
 
-    private List<Coffee> coffees = new ArrayList<>();
+    private final List<Coffee> coffees = new ArrayList<>();
     AtomicInteger id = new AtomicInteger(0);
 
     public List<Coffee> findAll() {
@@ -21,7 +20,7 @@ public class CoffeeService {
     }
 
     public Optional<Coffee> findOne(Integer id) {
-        return coffees.stream().filter(coffee -> coffee.id() == id).findFirst();
+        return coffees.stream().filter(coffee -> Objects.equals(coffee.id(), id)).findFirst();
     }
 
     public Coffee create(String name, Size size) {
@@ -32,7 +31,7 @@ public class CoffeeService {
 
     public Coffee update(Integer id, String name, Size size) {
         Coffee updatedCoffee = new Coffee(id, name, size);
-        Optional<Coffee> optional = coffees.stream().filter(c -> c.id() == id).findFirst();
+        Optional<Coffee> optional = coffees.stream().filter(c -> Objects.equals(c.id(), id)).findFirst();
         if (optional.isPresent()) {
             Coffee coffee = optional.get();
             int index = coffees.indexOf(coffee);
@@ -44,8 +43,8 @@ public class CoffeeService {
     }
 
     public Coffee delete(Integer id) {
-        Coffee coffee = coffees.stream().filter(c -> c.id() == id)
-                .findFirst().orElseThrow(() -> new IllegalArgumentException());
+        Coffee coffee = coffees.stream().filter(c -> Objects.equals(c.id(), id))
+                .findFirst().orElseThrow(IllegalArgumentException::new);
         coffees.remove(coffee);
         return coffee;
     }

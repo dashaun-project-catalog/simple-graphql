@@ -1,8 +1,5 @@
-package com.example.graphql.controller;
+package dev.dashaun.graphql.coffee;
 
-import com.example.graphql.model.Coffee;
-import com.example.graphql.model.Size;
-import com.example.graphql.service.CoffeeService;
 import org.springframework.graphql.data.method.annotation.Argument;
 import org.springframework.graphql.data.method.annotation.MutationMapping;
 import org.springframework.graphql.data.method.annotation.QueryMapping;

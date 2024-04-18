@@ -1,8 +1,5 @@
-package com.example.graphql.controller;
+package dev.dashaun.graphql.coffee;
 
-import com.example.graphql.model.Coffee;
-import com.example.graphql.model.Size;
-import com.example.graphql.service.CoffeeService;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
@@ -19,7 +16,6 @@ import static org.junit.jupiter.api.Assertions.*;
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class CoffeeControllerIntTest {
 
-    @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
     @Autowired
     GraphQlTester graphQlTester;
 
@@ -38,7 +34,7 @@ class CoffeeControllerIntTest {
                 name
                 size
             }
-        }            
+        }
         """;
 
         graphQlTester.document(document)
@@ -59,7 +55,7 @@ class CoffeeControllerIntTest {
                 name
                 size
             }
-        }            
+        }
         """;
 
         graphQlTester.document(document)
@@ -85,7 +81,7 @@ class CoffeeControllerIntTest {
                 name
                 size
             }
-        }            
+        }
         """;
 
         graphQlTester.document(document)
@@ -130,15 +126,13 @@ class CoffeeControllerIntTest {
     @Test
     @Order(5)
     void shouldUpdateExistingCoffee() {
-        Coffee currentCoffee = coffeeService.findOne(1).get();
-
         // language=GraphQL
         String document = """
             mutation update($id: ID, $name: String, $size: Size) {
                 update(id: $id, name: $name, size: $size) {
                     id
                     name
-                    size   
+                    size
                 }
             }
         """;
@@ -151,7 +145,8 @@ class CoffeeControllerIntTest {
                 .path("update")
                 .entity(Coffee.class);
 
-        Coffee updatedCoffee = coffeeService.findOne(1).get();
+        Coffee updatedCoffee = coffeeService.findOne(1).isPresent() ? coffeeService.findOne(1).get() : null;
+        assertNotNull(updatedCoffee);
         assertEquals("UPDATED: Caffè Latte",updatedCoffee.name());
         assertEquals(Size.SHORT,updatedCoffee.size());
     }

@@ -1,4 +1,4 @@
-package com.example.graphql.model;
+package dev.dashaun.graphql.coffee;
 
 public enum Size {
     SHORT,
