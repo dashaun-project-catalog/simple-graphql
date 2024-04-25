@@ -5,7 +5,7 @@
 # Spring for GraphQL
 
 This is a project will demonstrate the basics of building a GraphQL API using Spring for GraphQL. This
-project is built on Spring Boot 3.2.4 and Java 21.
+project is built on Spring Boot 3.2 and Java 21.
 
 ## About the Application
 
