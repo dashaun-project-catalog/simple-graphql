@@ -1,6 +1,6 @@
 package dev.dashaun.graphql.coffee;
 
-public enum Size {
+enum Size {
     SHORT,
     TALL,
     GRANDE,

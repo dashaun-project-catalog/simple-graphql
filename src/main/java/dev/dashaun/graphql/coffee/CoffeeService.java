@@ -10,26 +10,26 @@ import java.util.Optional;
 import java.util.concurrent.atomic.AtomicInteger;
 
 @Service
-public class CoffeeService {
+class CoffeeService {
 
     private final List<Coffee> coffees = new ArrayList<>();
     AtomicInteger id = new AtomicInteger(0);
 
-    public List<Coffee> findAll() {
+    List<Coffee> findAll() {
         return coffees;
     }
 
-    public Optional<Coffee> findOne(Integer id) {
+    Optional<Coffee> findOne(Integer id) {
         return coffees.stream().filter(coffee -> Objects.equals(coffee.id(), id)).findFirst();
     }
 
-    public Coffee create(String name, Size size) {
+    Coffee create(String name, Size size) {
         Coffee coffee = new Coffee(id.incrementAndGet(), name, size);
         coffees.add(coffee);
         return coffee;
     }
 
-    public Coffee update(Integer id, String name, Size size) {
+    Coffee update(Integer id, String name, Size size) {
         Coffee updatedCoffee = new Coffee(id, name, size);
         Optional<Coffee> optional = coffees.stream().filter(c -> Objects.equals(c.id(), id)).findFirst();
         if (optional.isPresent()) {
@@ -42,7 +42,7 @@ public class CoffeeService {
         return updatedCoffee;
     }
 
-    public Coffee delete(Integer id) {
+    Coffee delete(Integer id) {
         Coffee coffee = coffees.stream().filter(c -> Objects.equals(c.id(), id))
                 .findFirst().orElseThrow(IllegalArgumentException::new);
         coffees.remove(coffee);
